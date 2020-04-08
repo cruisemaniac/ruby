@@ -110,7 +110,10 @@ RUN ruby -r rbconfig -e "abort 'jemalloc not enabled' unless RbConfig::CONFIG['L
 # don't create ".bundle" in all our apps
 ENV GEM_HOME /usr/local/bundle
 ENV BUNDLE_SILENCE_ROOT_WARNING=1 \
-	BUNDLE_APP_CONFIG="$GEM_HOME"
+	BUNDLE_APP_CONFIG="$GEM_HOME" \
+	BUNDLE_JOBS=5 \
+	BUNDLE_DEPLOYMENT=TRUE \
+	BUNDLE_WITHOUT="development:test"
 ENV PATH $GEM_HOME/bin:$PATH
 # adjust permissions of a few directories for running "gem install" as an arbitrary user
 RUN mkdir -p "$GEM_HOME" && chmod 777 "$GEM_HOME"
